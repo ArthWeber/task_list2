@@ -1,5 +1,8 @@
 <script setup>
-  import { reactive } from "vue";
+  import { reactive } from 'vue';
+  import Cabecalho from './components/Cabecalho.vue';
+  import Formulario from './components/Formulario.vue';
+  import ListaDeTarefas from './components/ListaDeTarefas.vue';
 
   const estado = reactive({
     filtro: 'todas',
@@ -55,42 +58,10 @@
 
 <template>
 <body class="bg-info">  
-  <div class="container">
-    <header class="p-5 mb-4 mt-4 bg-dark rounded -3 text-light">
-      <h1>Minhas Tarefas</h1>
-      <p>
-        Você possui {{getTarefasPendentes().length }} pendentes
-      </p>
-    </header>
-
-    <!-- Cadastrar tarefa -->
-    <form @submit.prevent="cadastroTarefa">
-      <div class="row">
-          <div class="col">
-            <input :value="estado.tarefaTemp" @change="evento => estado.tarefaTemp = evento.target.value" required type="text" placeholder="Digite aqui a descrição da tarefa" class="form-control">
-          </div>
-          <div class="col-md-2">
-            <button class="btn btn-secondary">Cadastrar</button>
-          </div>
-          <div class="col-md-2">
-            <select @change="evento => estado.filtro = evento.target.value" class="form-control">
-              <option value="todas">Todas</option>
-              <option value="pendentes">Pendentes</option>
-              <option value="finalizadas">Finalizadas</option>
-            </select>
-          </div>
-      </div>
-    </form>
-    
-    <!-- Lista de tarefas (checkbox)-->
-    <ul class="list-group mt-4">
-      <li class="list-group-item" v-for="tarefa in getTarefasFiltradas()">
-        <input @change="evento => tarefa.finalizada = evento.target.checked" :checked="tarefa.finalizada" :id="tarefa.titulo" type="checkbox">
-        <label :class="{ done: tarefa.finalizada }" class="ms-3" :for="tarefa.titulo">
-          {{ tarefa.titulo }}
-        </label>
-      </li>
-    </ul>
+  <div class="container"> 
+    <Cabecalho />
+    <Formulario />
+    <ListaDeTarefas />   
   </div>
 </body>
 </template>
